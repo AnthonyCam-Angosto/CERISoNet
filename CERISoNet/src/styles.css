@@ -1,0 +1,103 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "tailwindcss";
+@import "@angular/material/prebuilt-themes/deeppurple-amber.css";
+
+
+
+/*pallete de couleurs pour le projet*/
+:root {
+  --color-deep-twilight-50: #e6e7fe;
+  --color-deep-twilight-100: #cecefd;
+  --color-deep-twilight-200: #9c9efc;
+  --color-deep-twilight-300: #6b6dfa;
+  --color-deep-twilight-400: #393cf9;
+  --color-deep-twilight-500: #080cf7;
+  --color-deep-twilight-600: #0609c6;
+  --color-deep-twilight-700: #050794;
+  --color-deep-twilight-800: #030563;
+  --color-deep-twilight-900: #020231;
+  --color-deep-twilight-950: #010223;
+
+  --color-bright-teal-blue-50: #e5f6ff;
+  --color-bright-teal-blue-100: #ccedff;
+  --color-bright-teal-blue-200: #99dbff;
+  --color-bright-teal-blue-300: #66c9ff;
+  --color-bright-teal-blue-400: #33b8ff;
+  --color-bright-teal-blue-500: #00a6ff;
+  --color-bright-teal-blue-600: #0085cc;
+  --color-bright-teal-blue-700: #006399;
+  --color-bright-teal-blue-800: #004266;
+  --color-bright-teal-blue-900: #002133;
+  --color-bright-teal-blue-950: #001724;
+
+  --color-turquoise-surf-50: #e5fbff;
+  --color-turquoise-surf-100: #ccf6ff;
+  --color-turquoise-surf-200: #99eeff;
+  --color-turquoise-surf-300: #66e5ff;
+  --color-turquoise-surf-400: #33ddff;
+  --color-turquoise-surf-500: #00d4ff;
+  --color-turquoise-surf-600: #00aacc;
+  --color-turquoise-surf-700: #007f99;
+  --color-turquoise-surf-800: #005566;
+  --color-turquoise-surf-900: #002a33;
+  --color-turquoise-surf-950: #001e24;
+
+  --color-frosted-blue-50: #e9f9fc;
+  --color-frosted-blue-100: #d2f3f9;
+  --color-frosted-blue-200: #a6e7f2;
+  --color-frosted-blue-300: #79dbec;
+  --color-frosted-blue-400: #4ccfe6;
+  --color-frosted-blue-500: #20c2df;
+  --color-frosted-blue-600: #199cb3;
+  --color-frosted-blue-700: #137586;
+  --color-frosted-blue-800: #0d4e59;
+  --color-frosted-blue-900: #06272d;
+  --color-frosted-blue-950: #041b1f;
+
+  --color-light-cyan-50: #e8f9fc;
+  --color-light-cyan-100: #d2f3f9;
+  --color-light-cyan-200: #a5e6f3;
+  --color-light-cyan-300: #78daed;
+  --color-light-cyan-400: #4acde8;
+  --color-light-cyan-500: #1dc1e2;
+  --color-light-cyan-600: #179ab5;
+  --color-light-cyan-700: #127487;
+  --color-light-cyan-800: #0c4d5a;
+  --color-light-cyan-900: #06272d;
+  --color-light-cyan-950: #041b20;
+
+
+
+/*pallete pour succes ou echec*/
+  --color-error-red-50: #ffe5e5; 
+  --color-error-red-100: #ffcccc; 
+  --color-error-red-200: #ff9999;
+  --color-error-red-300: #ff6666; 
+  --color-error-red-400: #ff3333; 
+  --color-error-red-500: #ff0000; 
+  --color-error-red-600: #cc0000; 
+  --color-error-red-700: #990000; 
+  --color-error-red-800: #660000; 
+  --color-error-red-900: #330000; 
+  --color-error-red-950: #1a0000;
+
+
+  --color-success-green-50: #e6f9ec;
+  --color-success-green-100: #cdf3d9;
+  --color-success-green-200: #9ae7b3;
+  --color-success-green-300: #68db8d;
+  --color-success-green-400: #35cf67;
+  --color-success-green-500: #03c341;
+  --color-success-green-600: #02a035;
+  --color-success-green-700: #027d29;
+  --color-success-green-800: #015a1d;
+  --color-success-green-900: #013712;
+  --color-success-green-950: #00250c;
+
+}
+
+body{
+  /*choix font pour le projet selon la disponibilite*/
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}

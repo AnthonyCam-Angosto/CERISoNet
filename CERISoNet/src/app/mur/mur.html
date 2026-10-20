@@ -1,0 +1,311 @@
+<div class="page-background"> 
+    <div class="page-content">
+
+        <div class="text-center mb-10">
+            <h1 class="text-4xl font-bold" style="color: var(--color-deep-twilight-700)">CERISoNet</h1>
+            <p class="mt-2" style="color: var(--color-deep-twilight-300)">Retrouve ici toutes les publications</p>
+        </div>
+
+        <!--section filtre et tri-->
+        <div class="mx-auto mb-6 sm:mb-8 flex justify-center px-2 sm:px-3">
+            <div class="w-full max-w-[900px] rounded-[16px] sm:rounded-[18px] border border-[var(--color-light-cyan-300)] bg-white/80 p-3 sm:p-4 shadow-[0_10px_24px_rgba(15,23,42,0.08)] backdrop-blur-[8px]">
+                <div class="mb-3 sm:mb-4">
+                    <p class="text-sm sm:text-[0.95rem] font-semibold text-[var(--color-deep-twilight-500)] text-center sm:text-left">Rechercher, filtrer et trier</p>
+                    <p class="mt-1 text-xs sm:text-sm text-[var(--color-deep-twilight-400)] text-center sm:text-left">Affinez rapidement les publications selon votre besoin</p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-12 gap-3">
+                    <div class="sm:col-span-6">
+                        <label for="post-search" class="mb-1 block text-xs font-medium text-[var(--color-deep-twilight-500)]">Recherche</label>
+                        <input
+                            #postSearch
+                            id="post-search"
+                            type="text"
+                            placeholder="Mot-clé, auteur ou hashtag..."
+                            aria-label="Rechercher une publication"
+                            [value]="filtreText()"
+                            (input)="filtreSearch($event)"
+                            class="h-11 w-full rounded-xl border border-[var(--color-light-cyan-300)] bg-[var(--color-light-cyan-50)] px-3 text-[var(--color-deep-twilight-500)] outline-none transition focus:border-[var(--color-bright-teal-blue-500)] focus:ring-3 focus:ring-sky-300/40"
+                        >
+                    </div>
+
+                    <div class="sm:col-span-3">
+                        <label for="post-filter-by" class="mb-1 block text-xs font-medium text-[var(--color-deep-twilight-500)]">Filtrer par</label>
+                        <select
+                            id="post-filter-by"
+                            aria-label="Choisir le type de filtre"
+                            [value]="typeFiltre()"
+                            (change)="filtreChange($event)"
+                            class="h-11 w-full rounded-xl border border-[var(--color-light-cyan-300)] bg-[var(--color-light-cyan-50)] px-3 text-[var(--color-deep-twilight-500)] outline-none transition focus:border-[var(--color-bright-teal-blue-500)] focus:ring-3 focus:ring-sky-300/40"
+                        >
+                            <option value="auteur">Auteur</option>
+                            <option value="contenu">Contenu</option>
+                            <option value="hashtag">Hashtag</option>
+                        </select>
+                    </div>
+
+                    <div class="sm:col-span-3">
+                        <label for="post-sort-by" class="mb-1 block text-xs font-medium text-[var(--color-deep-twilight-500)]">Trier</label>
+                        <select
+                            id="post-sort-by"
+                            aria-label="Choisir le tri"
+                            [value]="sortType()"
+                            (change)="sortChange($event)"
+                            class="h-11 w-full rounded-xl border border-[var(--color-light-cyan-300)] bg-[var(--color-light-cyan-50)] px-3 text-[var(--color-deep-twilight-500)] outline-none transition focus:border-[var(--color-bright-teal-blue-500)] focus:ring-3 focus:ring-sky-300/40"
+                        >
+                            <option value="newest">Plus récents</option>
+                            <option value="oldest">Plus anciens</option>
+                            <option value="most_liked">Plus aimés</option>
+                            <option value="least_liked">Moins aimés</option>
+                        </select>
+                    </div>
+
+                    <div class="sm:col-span-12 flex justify-end">
+                        <button
+                            type="button"
+                            (click)="reset_filters()"
+                            class="h-11 rounded-xl border border-[var(--color-bright-teal-blue-300)] bg-white px-4 text-sm font-semibold text-[var(--color-bright-teal-blue-600)] transition hover:bg-[var(--color-light-cyan-50)]"
+                        >
+                            Réinitialiser
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section des publications -->
+        <div class="max-w-3xl mx-auto space-y-6">
+            @for (post of posts(); track post.id) {
+                <div class="rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-200"
+                     style="
+                        background-color: white;
+                        border: 1px solid var(--color-light-cyan-200);
+                     ">
+
+                    <!-- Post partagé -->
+                    @if (post.shared) {
+                        @let sharedPost = post.sharedPost;
+                        @if (sharedPost) {
+                            <div class="mb-4 p-4 rounded-lg"
+                                 style="
+                                    background-color: var(--color-light-cyan-50);
+                                    border: 1px solid var(--color-light-cyan-200);
+                                 ">
+
+                                <p class="text-sm mb-2" style="color: var(--color-deep-twilight-400)">
+                                    → Partagé de {{ sharedPost?.author }}
+                                </p>
+
+                                <h3 class="text-lg font-semibold mb-2" style="color: var(--color-deep-twilight-700)">
+                                    {{ sharedPost?.content }}
+                                </h3>
+
+                                @if (sharedPost?.image) {
+                                    if
+                                    <div class="mb-4">
+                                        <img [src]="sharedPost?.image?.url"
+                                             [alt]="sharedPost?.image?.title"
+                                             class="mx-auto rounded-lg object-cover"
+                                             style="max-width: 100%; height: auto; max-height: 300px;"
+                                             >
+                                    </div>
+                                }
+                            </div>
+                        }
+                    }
+
+                    @if (post.image) {
+                        <div class="mb-4">
+                            <img [src]="post.image.url"
+                                 [alt]="post.image.title"
+                                 class="mx-auto rounded-lg object-cover"
+                                 style="max-width: 100%; height: auto; max-height: 300px;"
+                                 >
+                        </div>
+                    }
+
+                    <p class="leading-relaxed mb-4" style="color: var(--color-deep-twilight-300)">
+                        {{ post.content }}
+                    </p>
+
+                    @if (post.hashtags && post.hashtags.length > 0) {
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            @for (tag of post.hashtags; track tag) {
+                                <span class="px-3 py-1 text-xs font-semibold rounded-full"
+                                      style="
+                                        background-color: var(--color-bright-teal-blue-500);
+                                        color: white;
+                                      ">
+                                    {{ tag }}
+                                </span>
+                            }
+                        </div>
+                    }
+
+                    <div class="flex justify-between text-sm">
+                        <span class="font-medium" style="color: var(--color-bright-teal-blue-500)">
+                            Auteur : {{ post.author }}
+                        </span>
+
+                        <div class="flex items-center gap-3 sm:gap-4 flex-wrap justify-end">
+
+
+                            <div class="flex items-center gap-2 px-2 py-1 rounded-full shadow-sm"
+                                style="
+                                    background-color: var(--color-light-cyan-100);
+                                    border: 1px solid var(--color-light-cyan-300);
+                                ">
+                                <button class="material-symbols-rounded p-0 bg-transparent border-none cursor-pointer text-xl transition-all duration-200 hover:scale-125" 
+                                        [style.color]="post.likedByCurrentUser ? 'var(--color-error-red-600)' : 'white'"
+                                        [style.fontVariationSettings]="post.likedByCurrentUser ? '\'FILL\' 1' : '\'FILL\' 0'"
+                                        (click)="toggleLike(post)"
+                                        >
+                                    favorite
+                                </button>
+                                <span style="color: var(--color-deep-twilight-500)">{{ post.likes }}</span>
+                            </div>
+
+                            <button
+                                type="button"
+                                (click)="toggleCommentSection(post.id)"
+                                class="flex items-center gap-2 rounded-full border px-3 py-1 text-xs sm:text-sm font-semibold transition"
+                                [style.borderColor]="isCommentSectionOpen(post.id) ? 'var(--color-bright-teal-blue-600)' : 'var(--color-bright-teal-blue-300)'"
+                                [style.backgroundColor]="isCommentSectionOpen(post.id) ? 'var(--color-bright-teal-blue-100)' : 'white'"
+                                [style.color]="isCommentSectionOpen(post.id) ? 'var(--color-bright-teal-blue-700)' : 'var(--color-bright-teal-blue-600)'">
+                                @if (isCommentSectionOpen(post.id)) {
+                                    Masquer commentaires
+                                } @else {
+                                    Voir commentaires
+                                }
+                                <span class="rounded-full px-2 py-0.5 text-xs"
+                                      style="background-color: var(--color-light-cyan-100); color: var(--color-deep-twilight-500)">
+                                    {{ post.comments?.length ?? 0 }}
+                                </span>
+                            </button>
+
+                            <button
+                                type="button"
+                                (click)="openSharePostModal(post)"
+                                class="flex items-center gap-2 rounded-full border border-[var(--color-bright-teal-blue-300)] bg-white px-3 py-1 text-xs sm:text-sm font-semibold text-[var(--color-bright-teal-blue-600)] transition hover:bg-[var(--color-light-cyan-100)]"
+                                aria-label="Partager ce post">
+                                Partager
+                            </button>
+
+
+
+
+                            <span style="color: var(--color-light-cyan-400)">Publié le : {{ post.date }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                @if (isCommentSectionOpen(post.id)) {
+                    <!-- Section des commentaires -->
+                    <div class="mt-6 pt-6 rounded-xl"
+                        style=" background-color: var(--color-light-cyan-50); 
+                                border: 1px solid var(--color-bright-teal-blue-700); 
+                                padding: 20px; ">
+
+                        <h3 class="font-semibold mb-4 text-lg" style="color: var(--color-bright-teal-blue-600)">
+                            Commentaires
+                        </h3> 
+                        
+                        @if (post.comments && post.comments.length > 0) {
+                            <div class="space-y-3 mb-4">
+                                @for (comment of post.comments; track comment.id) {
+                                    <div class="p-3 rounded-lg shadow-sm"
+                                         style="
+                                            background-color: var(--color-light-cyan-100);
+                                            border: 1px solid var(--color-light-cyan-300);
+                                         ">
+
+                                        <p class="text-sm" style="color: var(--color-deep-twilight-600)">
+                                            {{ comment.text }}
+                                        </p>
+
+                                        <div class="flex justify-between text-xs mt-1"
+                                             style="color: var(--color-light-cyan-500)">
+                                            <span>→ {{ comment.author }}</span>
+                                            <span>{{ comment.date }}</span>
+                                        </div> 
+                                    </div>
+                                }
+                            </div>
+                        } 
+                        @else {
+                            <div class="text-sm italic mb-4" style="color: var(--color-light-cyan-400)">
+                                Aucun commentaire pour le moment.
+                            </div>
+                        }
+
+                        <div class="mt-4">
+                            @if (activeCommentPostId() !== post.id) {
+                                <button
+                                    type="button"
+                                    (click)="openNewComment(post.id)"
+                                    class="rounded-lg border border-[var(--color-bright-teal-blue-300)] bg-white px-4 py-2 
+                                    text-sm font-semibold text-[var(--color-bright-teal-blue-600)] transition hover:bg-[var(--color-light-cyan-100)]">
+                                    Nouveau commentaire
+                                </button>
+                            } @else {
+                                <div class="rounded-lg border border-[var(--color-light-cyan-300)] bg-white p-3">
+                                    <textarea
+                                        [value]="commentDraft()"
+                                        (input)="updateCommentDraft($event)"
+                                        rows="3"
+                                        placeholder="Écris ton commentaire..."
+                                        class="w-full rounded-lg border border-[var(--color-light-cyan-300)] p-2 text-sm outline-none 
+                                        focus:border-[var(--color-bright-teal-blue-500)]"></textarea>
+
+                                    <div class="mt-3 flex gap-2 justify-end">
+                                        <button
+                                            type="button"
+                                            (click)="closeNewComment()"
+                                            class="rounded-lg border border-[var(--color-light-cyan-300)] bg-white px-3 py-2 text-sm 
+                                            text-[var(--color-deep-twilight-500)]">
+                                            Annuler
+                                        </button>
+                                        <button
+                                            type="button"
+                                            (click)="submitComment(post.id)"
+                                            class="rounded-lg border border-[var(--color-bright-teal-blue-500)] 
+                                            bg-[var(--color-bright-teal-blue-500)] px-3 py-2 text-sm font-semibold text-white">
+                                            Publier
+                                        </button>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                        
+                    </div>
+                }
+            }
+
+            <div #scrollSentinel class="h-2"></div>
+
+            @if (isLoadingMore()) {
+                <div class="py-4 text-center text-sm" style="color: var(--color-deep-twilight-400)">
+                    Chargement de publications...
+                </div>
+            }
+
+            @if (!hasMore() && posts().length > 0) {
+                <div class="py-4 text-center text-sm" style="color: var(--color-deep-twilight-400)">
+                    Vous avez atteint la fin du fil.
+                </div>
+            }
+
+            @if (!isLoadingMore() && posts().length === 0) {
+                <div class="py-4 text-center text-sm" style="color: var(--color-deep-twilight-400)">
+                    Aucune publication a afficher.
+                </div>
+            }
+        </div>
+    </div>
+    <button class="new-post-btn" (click)="openNewPostModal()"> 
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round"> 
+            <line x1="12" y1="5" x2="12" y2="19" /> 
+            <line x1="5" y1="12" x2="19" y2="12" /> 
+        </svg> 
+    </button>
+</div>

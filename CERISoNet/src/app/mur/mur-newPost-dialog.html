@@ -1,0 +1,103 @@
+<div class="w-full max-w-2xl overflow-hidden rounded-3xl border border-[var(--color-light-cyan-200)] bg-white shadow-[0_24px_60px_rgba(15,23,42,0.20)]">
+  <div class="relative px-6 py-6 sm:px-8 sm:py-7"
+       style="background: linear-gradient(135deg, var(--color-frosted-blue-50), var(--color-light-cyan-100), var(--color-bright-teal-blue-50));">
+    <div class="absolute -top-14 -right-10 h-36 w-36 rounded-full opacity-40"
+         style="background: radial-gradient(circle, var(--color-bright-teal-blue-300), transparent 70%);"></div>
+    <div class="absolute -bottom-16 -left-8 h-32 w-32 rounded-full opacity-35"
+         style="background: radial-gradient(circle, var(--color-light-cyan-300), transparent 70%);"></div>
+
+    <div class="relative z-10 flex items-start justify-between gap-4">
+      <div>
+        <p class="text-xs font-semibold uppercase tracking-[0.18em]" style="color: var(--color-deep-twilight-400);">
+          Nouvelle publication
+        </p>
+        <h2 class="mt-2 text-2xl sm:text-3xl font-bold" style="color: var(--color-deep-twilight-700);">
+          Créer un post
+        </h2>
+        <p class="mt-2 text-sm" style="color: var(--color-deep-twilight-500);">
+          Partage une actualité, une image ou une idée avec ton réseau.
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+  <form [formGroup]="postform" class="space-y-5 px-6 py-6 sm:px-8 sm:py-7" style="background-color: var(--color-light-cyan-50);">
+    <div>
+      <label class="mb-2 block text-sm font-semibold" style="color: var(--color-deep-twilight-600);">
+        Contenu
+      </label>
+      <textarea
+        formControlName="content"
+        rows="5"
+        class="w-full rounded-2xl border bg-white px-4 py-3 text-sm outline-none transition focus:ring-4"
+        style="border-color: var(--color-light-cyan-300); color: var(--color-deep-twilight-600); caret-color: var(--color-bright-teal-blue-600);"
+        placeholder="Écris ton message ici..."
+      ></textarea>
+    </div>
+
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+      <div class="sm:col-span-2">
+        <label class="mb-2 block text-sm font-semibold" style="color: var(--color-deep-twilight-600);">
+          Image (URL, optionnel)
+        </label>
+        <input
+          type="text"
+          formControlName="image"
+          class="w-full rounded-xl border bg-white px-4 py-2.5 text-sm outline-none transition focus:ring-4"
+          style="border-color: var(--color-light-cyan-300); color: var(--color-deep-twilight-600);"
+          placeholder="https://exemple.com/image.jpg"
+        />
+      </div>
+
+      <div class="sm:col-span-2">
+        <label class="mb-2 block text-sm font-semibold" style="color: var(--color-deep-twilight-600);">
+          Titre de l'image (optionnel)
+        </label>
+        <input
+          type="text"
+          formControlName="imageTitle"
+          class="w-full rounded-xl border bg-white px-4 py-2.5 text-sm outline-none transition focus:ring-4"
+          style="border-color: var(--color-light-cyan-300); color: var(--color-deep-twilight-600);"
+          placeholder="Exemple : Soirée au campus"
+        />
+      </div>
+
+      <div class="sm:col-span-2">
+        <label class="mb-2 block text-sm font-semibold" style="color: var(--color-deep-twilight-600);">
+          Hashtags (optionnel)
+        </label>
+        <input
+          type="text"
+          formControlName="hashtags"
+          class="w-full rounded-xl border bg-white px-4 py-2.5 text-sm outline-none transition focus:ring-4"
+          style="border-color: var(--color-light-cyan-300); color: var(--color-deep-twilight-600);"
+          placeholder="#angular #projet #ceri"
+        />
+        <p class="mt-1.5 text-xs" style="color: var(--color-deep-twilight-400);">
+          Sépare les hashtags par des espaces.
+        </p>
+      </div>
+    </div>
+  </form>
+
+  <div class="flex flex-col-reverse gap-2 border-t px-6 py-5 sm:flex-row sm:justify-end sm:px-8"
+       style="border-color: var(--color-light-cyan-200); background-color: white;">
+    <button
+      mat-button
+      mat-dialog-close
+      class="rounded-xl border px-4 py-2 text-sm font-semibold transition"
+      style="border-color: var(--color-light-cyan-300); color: var(--color-deep-twilight-500);">
+      Annuler
+    </button>
+
+    <button
+      mat-flat-button
+      color="primary"
+      (click)="submit()"
+      class="rounded-xl px-5 py-2 text-sm font-semibold text-white shadow-[0_8px_20px_rgba(2,132,199,0.28)] transition"
+      style="background: linear-gradient(135deg, var(--color-bright-teal-blue-500), var(--color-bright-teal-blue-700));">
+      Publier
+    </button>
+  </div>
+</div>

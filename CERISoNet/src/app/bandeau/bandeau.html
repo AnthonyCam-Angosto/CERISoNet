@@ -1,0 +1,20 @@
+@if (notificationService.notification$ | async; as notif) {
+  <div
+    class="fixed top-0 left-0 right-0 flex justify-center transition-all duration-300 z-50"
+    [class.-translate-y-full]="!notif.visible"
+    [class.translate-y-0]="notif.visible"
+  >
+    <div
+      class="px-4 py-3 rounded-b shadow-md text-white font-medium w-full text-center"
+      [ngStyle]="{
+        'background-color': 
+        notif.type === 'error' ?'color-mix(in srgb, var(--color-error-red-500) 60%,transparent)' : 
+        notif.type === 'success' ?'color-mix(in srgb, var(--color-success-green-600) 60%,transparent)' :
+        notif.type === 'info' ?'color-mix(in srgb, var(--color-light-cyan-600) 60%,transparent)' :
+        ''
+      }"
+    >
+      {{ notif.message }}
+    </div>
+  </div>
+}
